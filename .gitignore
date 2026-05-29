@@ -1,0 +1,7 @@
+.env
+node_modules/
+dist/
+Conversas/
+imagens/
+.claude/
+scripts/debug-*

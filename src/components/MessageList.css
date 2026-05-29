@@ -1,0 +1,31 @@
+.message-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0 4px;
+  background-color: #e5ddd9;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cg fill='%23cbbeb5' fill-opacity='0.45'%3E%3Cpolygon points='0 10 10 0 20 10 10 20'/%3E%3Cpolygon points='30 10 40 0 50 10 40 20'/%3E%3Cpolygon points='60 10 70 0 80 10 70 20'/%3E%3Cpolygon points='15 35 25 25 35 35 25 45'/%3E%3Cpolygon points='45 35 55 25 65 35 55 45'/%3E%3Cpolygon points='75 35 85 25 95 35 85 45'/%3E%3Cpolygon points='0 60 10 50 20 60 10 70'/%3E%3Cpolygon points='30 60 40 50 50 60 40 70'/%3E%3Cpolygon points='60 60 70 50 80 60 70 70'/%3E%3Cpolygon points='15 85 25 75 35 85 25 95'/%3E%3Cpolygon points='45 85 55 75 65 85 55 95'/%3E%3Cpolygon points='75 85 85 75 95 85 85 95'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.date-separator {
+  display: flex;
+  justify-content: center;
+  padding: 8px 16px;
+}
+
+.date-separator span {
+  background: #e1f0d0;
+  color: #54656f;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 7.5px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.scroll-anchor {
+  height: 4px;
+  flex-shrink: 0;
+}
