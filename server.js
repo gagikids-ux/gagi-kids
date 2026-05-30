@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import OpenAI from 'openai'
 import multer from 'multer'
+import sharp from 'sharp'
 import { createClient } from '@supabase/supabase-js'
 import { readFileSync } from 'fs'
 import { fileURLToPath } from 'url'
@@ -36,6 +37,7 @@ let catalogCache = { products: null, at: 0 }
 const CATALOG_CACHE_TTL = 5 * 60 * 1000
 
 function dbToProduct(r) {
+  const photos = r.photos?.length ? r.photos : (r.photo ? [r.photo] : [])
   return {
     id: r.id, name: r.name, category: r.category || '',
     sex: r.sex || 'Menina', price: Number(r.price) || 0,
@@ -44,12 +46,14 @@ function dbToProduct(r) {
     eyes: r.eyes || 'abertos', hair: r.hair || 'pintado',
     material: r.material || '', description: r.description || '',
     includes: r.includes || '', notes: r.notes || '',
-    photo: r.photo || '', available: r.available !== false,
+    photo: photos[0] || '', photos, video: r.video || '',
+    available: r.available !== false,
     readyStock: r.ready_stock || false,
   }
 }
 
 function productToDb(p) {
+  const photos = p.photos?.length ? p.photos : (p.photo ? [p.photo] : [])
   return {
     id: p.id, name: p.name || '', category: p.category || '',
     sex: p.sex || 'Menina', price: Number(p.price) || 0,
@@ -58,7 +62,8 @@ function productToDb(p) {
     eyes: p.eyes || 'abertos', hair: p.hair || 'pintado',
     material: p.material || '', description: p.description || '',
     includes: p.includes || '', notes: p.notes || '',
-    photo: p.photo || '', available: p.available !== false,
+    photo: photos[0] || '', photos, video: p.video || '',
+    available: p.available !== false,
     ready_stock: p.readyStock || false,
   }
 }
@@ -107,7 +112,7 @@ function formatCatalogForAI(products) {
   }).join('\n')
 }
 
-// Injeta imagens para produtos mencionados na resposta da IA ou na mensagem do usuário
+// Injeta fotos (até 3) e vídeo dos produtos mencionados na resposta da IA ou mensagem do usuário
 const COMMON_WORDS = new Set(['bebe', 'beba', 'reborn', 'baby', 'doll', 'modelo', 'boneca', 'boneco', 'mini', 'plus', 'menina', 'menino', 'premium', 'silicone', 'vinil'])
 
 function normalizeStr(s) {
@@ -140,7 +145,10 @@ function injectImages(aiText, userText, products) {
       : searchText.includes(normalizeStr(p.name))
 
     if (matched) {
-      injected.push(`![${p.name}](${STORAGE_URL}/${p.photo})`)
+      // Injeta até 3 fotos do produto
+      const visiblePhotos = (p.photos?.length ? p.photos : (p.photo ? [p.photo] : [])).slice(0, 3)
+      visiblePhotos.forEach(f => injected.push(`![${p.name}](${STORAGE_URL}/${f})`))
+      if (p.video) injected.push(`[video:${STORAGE_URL}/${p.video}]`)
     }
   }
 
@@ -506,12 +514,37 @@ app.delete('/api/catalog/:id', adminAuth, async (req, res) => {
 
 app.post('/api/upload', adminAuth, upload.single('photo'), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'Arquivo inválido' })
-  const filename = Date.now() + extname(req.file.originalname).toLowerCase()
-  const { error } = await supabase.storage.from('imagens').upload(filename, req.file.buffer, {
-    contentType: req.file.mimetype, upsert: true,
+  let buffer = req.file.buffer
+  let contentType = 'image/webp'
+  let filename = Date.now() + '.webp'
+
+  try {
+    buffer = await sharp(req.file.buffer)
+      .resize({ width: 1200, withoutEnlargement: true })
+      .webp({ quality: 82 })
+      .toBuffer()
+  } catch {
+    // fallback: upload original sem processar
+    buffer = req.file.buffer
+    contentType = req.file.mimetype
+    filename = Date.now() + extname(req.file.originalname).toLowerCase()
+  }
+
+  const { error } = await supabase.storage.from('imagens').upload(filename, buffer, {
+    contentType, upsert: true,
   })
   if (error) return res.status(500).json({ error: error.message })
   res.json({ filename, url: `${STORAGE_URL}/${filename}` })
+})
+
+// URL assinada para upload direto de vídeo (sem passar pelo servidor)
+app.post('/api/signed-url', adminAuth, async (req, res) => {
+  const { filename } = req.body
+  if (!filename) return res.status(400).json({ error: 'filename obrigatório' })
+  const path = `${Date.now()}_${filename.replace(/[^a-zA-Z0-9._-]/g, '_')}`
+  const { data, error } = await supabase.storage.from('imagens').createSignedUploadUrl(path)
+  if (error) return res.status(500).json({ error: error.message })
+  res.json({ signedUrl: data.signedUrl, path, token: data.token })
 })
 
 // ─── Auth do admin ────────────────────────────────────────────────────────────

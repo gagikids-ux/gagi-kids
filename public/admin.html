@@ -10,46 +10,50 @@
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--gray);color:var(--text);min-height:100vh}
 
 /* ── HEADER ── */
-.hdr{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.hdr-left{display:flex;align-items:center;gap:10px}
-.hdr h1{font-size:18px;font-weight:700}
-.hdr-sub{font-size:12px;opacity:.75;margin-top:1px}
-.btn-add{background:#fff;color:var(--green);border:none;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;transition:.15s;white-space:nowrap}
+.hdr{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.hdr-left{display:flex;align-items:center;gap:8px;min-width:0}
+.hdr-title{font-size:17px;font-weight:700;white-space:nowrap}
+.hdr-sub{font-size:11px;opacity:.75;margin-top:1px;white-space:nowrap}
+.hdr-actions{display:flex;gap:8px;flex-shrink:0}
+.btn-filter{display:none;background:rgba(255,255,255,.2);border:none;color:#fff;padding:7px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer}
+.btn-add{background:#fff;color:var(--green);border:none;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;transition:.15s;white-space:nowrap}
 .btn-add:hover{background:#e8f5e9}
 
 /* ── LAYOUT ── */
-.layout{display:flex;min-height:calc(100vh - 56px)}
+.layout{display:flex;min-height:calc(100vh - 54px)}
 
 /* ── SIDEBAR ── */
-.sidebar{width:230px;flex-shrink:0;background:#fff;border-right:1px solid var(--border);padding:16px;overflow-y:auto;position:sticky;top:56px;height:calc(100vh - 56px)}
-.sidebar h3{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--sub);margin:16px 0 8px;font-weight:600}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:50}
+.sidebar{width:220px;flex-shrink:0;background:#fff;border-right:1px solid var(--border);padding:14px;overflow-y:auto;position:sticky;top:54px;height:calc(100vh - 54px);transition:transform .25s}
+.sidebar h3{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--sub);margin:14px 0 7px;font-weight:600}
 .sidebar h3:first-child{margin-top:0}
 .search-box{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:20px;font-size:13px;outline:none;transition:.15s}
 .search-box:focus{border-color:var(--green)}
 .cb-label{display:flex;align-items:center;gap:8px;font-size:13px;padding:3px 0;cursor:pointer;color:#333}
 .cb-label input{accent-color:var(--green);cursor:pointer}
 .price-row{display:flex;gap:6px;align-items:center}
-.price-in{width:80px;padding:6px 8px;border:1px solid var(--border);border-radius:8px;font-size:12px;outline:none}
+.price-in{width:78px;padding:6px 8px;border:1px solid var(--border);border-radius:8px;font-size:12px;outline:none}
 .price-in:focus{border-color:var(--green)}
-.clear-btn{width:100%;margin-top:14px;padding:7px;border:1px solid var(--border);border-radius:8px;background:#fff;font-size:12px;color:var(--sub);cursor:pointer;transition:.15s}
+.clear-btn{width:100%;margin-top:12px;padding:7px;border:1px solid var(--border);border-radius:8px;background:#fff;font-size:12px;color:var(--sub);cursor:pointer;transition:.15s}
 .clear-btn:hover{border-color:var(--red);color:var(--red)}
 
 /* ── MAIN ── */
-.main{flex:1;padding:16px 20px;overflow:hidden}
-.result-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.main{flex:1;padding:14px 16px;overflow:hidden;min-width:0}
+.result-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px}
 .result-bar span{font-size:13px;color:var(--sub)}
 .sort-sel{padding:6px 10px;border:1px solid var(--border);border-radius:20px;font-size:12px;color:#444;background:#fff;cursor:pointer;outline:none}
 
 /* ── GRID ── */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:12px}
 .card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.07);transition:transform .15s,box-shadow .15s;display:flex;flex-direction:column}
 .card:hover{transform:translateY(-2px);box-shadow:0 5px 16px rgba(0,0,0,.12)}
 .card.unavailable{opacity:.5}
-.card-img{height:150px;background:#f5ede6;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.card-img{height:140px;background:#f5ede6;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .card-img img{width:100%;height:100%;object-fit:cover}
-.card-ph{width:56px;height:56px;opacity:.35}
+.card-ph{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
 .ready-badge{position:absolute;top:6px;right:6px;background:#00897b;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px}
 .unavail-badge{position:absolute;top:6px;left:6px;background:#b71c1c;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px}
+.photo-count{position:absolute;bottom:5px;right:6px;background:rgba(0,0,0,.55);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:8px;display:flex;align-items:center;gap:3px}
 .card-body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
 .card-badges{display:flex;flex-wrap:wrap;gap:3px}
 .badge{font-size:10px;padding:2px 7px;border-radius:8px;font-weight:600;white-space:nowrap}
@@ -67,46 +71,65 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .btn-edit:hover{background:#c8e6c9}
 .btn-del{background:#ffebee;color:var(--red)}
 .btn-del:hover{background:#ffcdd2}
-
 .empty{grid-column:1/-1;text-align:center;padding:60px 20px;color:#aaa;font-size:15px}
 
 /* ── DRAWER ── */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200}
 .overlay.open{display:block}
-.drawer{position:fixed;top:0;right:-540px;width:520px;max-width:100vw;height:100vh;background:#fff;z-index:201;box-shadow:-4px 0 24px rgba(0,0,0,.15);transition:right .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.drawer{position:fixed;top:0;right:-560px;width:540px;max-width:100vw;height:100vh;background:#fff;z-index:201;box-shadow:-4px 0 24px rgba(0,0,0,.15);transition:right .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
 .drawer.open{right:0}
-.drawer-hdr{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.drawer-hdr{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .drawer-hdr h2{font-size:16px;font-weight:700}
 .drawer-close{background:none;border:none;color:#fff;font-size:22px;cursor:pointer;line-height:1;opacity:.8}
 .drawer-close:hover{opacity:1}
-.drawer-body{flex:1;overflow-y:auto;padding:20px}
-.drawer-footer{padding:16px 20px;border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0}
+.drawer-body{flex:1;overflow-y:auto;padding:18px}
+.drawer-footer{padding:14px 18px;border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0}
 
 /* ── FORM ── */
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .form-full{grid-column:1/-1}
 .form-group{display:flex;flex-direction:column;gap:5px}
 label{font-size:12px;font-weight:600;color:#444;text-transform:uppercase;letter-spacing:.4px}
 .form-group input,.form-group select,.form-group textarea{padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none;transition:.15s;font-family:inherit;background:#fff;color:var(--text)}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--green)}
-.form-group textarea{resize:vertical;min-height:70px}
+.form-group textarea{resize:vertical;min-height:68px}
 .radio-group{display:flex;flex-wrap:wrap;gap:8px}
 .radio-pill{display:flex;align-items:center;gap:6px;padding:6px 12px;border:1.5px solid var(--border);border-radius:20px;cursor:pointer;font-size:13px;transition:.15s}
 .radio-pill input{display:none}
 .radio-pill.checked{border-color:var(--green);background:#e8f5e9;color:var(--green);font-weight:600}
 .section-title{font-size:13px;font-weight:700;color:var(--green);margin:16px 0 10px;padding-bottom:6px;border-bottom:1.5px solid #e8f5e9}
 
-/* ── PHOTO UPLOAD ── */
-.photo-drop{border:2px dashed var(--border);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:.15s;position:relative}
-.photo-drop:hover,.photo-drop.drag{border-color:var(--green);background:#f0faf8}
-.photo-drop input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.photo-preview{width:100%;max-height:180px;object-fit:contain;border-radius:8px;display:none;margin-bottom:8px}
-.photo-preview.show{display:block}
-.photo-drop p{font-size:12px;color:var(--sub);margin-top:4px}
-.photo-name{font-size:11px;color:var(--green);font-weight:600;margin-top:4px;word-break:break-all}
+/* ── PHOTO GALLERY ── */
+.photo-gallery{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.photo-slot{position:relative;aspect-ratio:1;border:2px dashed var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:.15s;background:#fafafa;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px}
+.photo-slot:hover{border-color:var(--green);background:#f0faf8}
+.photo-slot.has-photo{border-style:solid;border-color:var(--green);padding:0}
+.photo-slot.dragging{border-color:var(--green);background:#e8f5e9}
+.photo-slot img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-slot input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.slot-plus{font-size:22px;color:#ccc;line-height:1}
+.slot-label{font-size:9px;color:#aaa;text-align:center;padding:0 4px}
+.slot-remove{position:absolute;top:3px;right:3px;width:18px;height:18px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:50%;cursor:pointer;font-size:12px;line-height:18px;text-align:center;display:none;z-index:2;padding:0}
+.photo-slot.has-photo .slot-remove{display:block}
+.slot-num{position:absolute;bottom:3px;left:4px;font-size:9px;font-weight:700;color:#fff;background:rgba(0,0,0,.45);border-radius:4px;padding:1px 4px}
+.photo-uploading::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center}
+.photo-help{font-size:11px;color:var(--sub);margin-top:6px}
+
+/* ── VIDEO UPLOAD ── */
+.video-drop{border:2px dashed var(--border);border-radius:10px;padding:16px;text-align:center;cursor:pointer;transition:.15s;position:relative;background:#fafafa}
+.video-drop:hover,.video-drop.drag{border-color:var(--green);background:#f0faf8}
+.video-drop input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.video-preview{width:100%;border-radius:8px;max-height:180px;display:none;margin-bottom:8px;background:#000}
+.video-preview.show{display:block}
+.video-drop p{font-size:12px;color:var(--sub)}
+.video-name{font-size:11px;color:var(--green);font-weight:600;margin-top:4px;word-break:break-all}
+.video-progress{height:3px;background:#e0e0e0;border-radius:2px;margin-top:8px;overflow:hidden;display:none}
+.video-progress-bar{height:100%;background:var(--green);transition:width .2s}
+.btn-remove-video{background:none;border:1px solid var(--red);color:var(--red);padding:4px 10px;border-radius:8px;font-size:11px;cursor:pointer;margin-top:6px;display:none}
+.btn-remove-video.show{display:inline-block}
 
 /* ── BUTTONS ── */
-.btn{padding:10px 22px;border-radius:10px;border:none;font-size:14px;font-weight:700;cursor:pointer;transition:.15s}
+.btn{padding:10px 20px;border-radius:10px;border:none;font-size:14px;font-weight:700;cursor:pointer;transition:.15s}
 .btn-primary{background:var(--green);color:#fff;flex:1}
 .btn-primary:hover{background:#054d44}
 .btn-primary:disabled{opacity:.5;cursor:not-allowed}
@@ -114,15 +137,26 @@ label{font-size:12px;font-weight:600;color:#444;text-transform:uppercase;letter-
 .btn-secondary:hover{background:#eee}
 
 /* ── TOAST ── */
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#323232;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:500;z-index:300;transition:transform .25s;pointer-events:none}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#323232;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:500;z-index:300;transition:transform .25s;pointer-events:none;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
+/* ── RESPONSIVE ── */
 @media(max-width:700px){
-  .sidebar{display:none}
+  .btn-filter{display:block}
+  .sidebar{position:fixed;top:0;left:-240px;height:100vh;z-index:60;padding-top:54px;box-shadow:4px 0 16px rgba(0,0,0,.15)}
+  .sidebar.mobile-open{left:0}
+  .sidebar-overlay.mobile-open{display:block}
   .layout{display:block}
-  .grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr))}
+  .main{padding:12px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
   .drawer{width:100vw}
   .form-grid{grid-template-columns:1fr}
+  .photo-gallery{grid-template-columns:repeat(3,1fr)}
+  .hdr-sub{display:none}
+}
+@media(max-width:380px){
+  .photo-gallery{grid-template-columns:repeat(2,1fr)}
+  .grid{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -130,55 +164,50 @@ label{font-size:12px;font-weight:600;color:#444;text-transform:uppercase;letter-
 
 <div class="hdr">
   <div class="hdr-left">
+    <svg width="26" height="26" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="13" r="9" fill="white" opacity=".9"/><ellipse cx="20" cy="31" rx="12" ry="8" fill="white" opacity=".9"/><circle cx="17" cy="12" r="1.5" fill="#075e54"/><circle cx="23" cy="12" r="1.5" fill="#075e54"/><path d="M17 16.5Q20 19 23 16.5" stroke="#075e54" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
     <div>
-      <div class="hdr h1" style="display:flex;align-items:center;gap:8px">
-        <svg width="28" height="28" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="13" r="9" fill="white" opacity=".9"/><ellipse cx="20" cy="31" rx="12" ry="8" fill="white" opacity=".9"/><circle cx="17" cy="12" r="1.5" fill="#075e54"/><circle cx="23" cy="12" r="1.5" fill="#075e54"/><path d="M17 16.5Q20 19 23 16.5" stroke="#075e54" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
-        Gagi Kids — Admin
-      </div>
+      <div class="hdr-title">Gagi Kids — Admin</div>
       <div class="hdr-sub" id="hdrCount"></div>
     </div>
   </div>
-  <button class="btn-add" onclick="openDrawer()">+ Novo Produto</button>
+  <div class="hdr-actions">
+    <button class="btn-filter" onclick="toggleSidebar()">☰ Filtros</button>
+    <button class="btn-add" onclick="openDrawer()">+ Novo</button>
+  </div>
 </div>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
 <div class="layout">
   <!-- SIDEBAR -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <input class="search-box" type="text" placeholder="Buscar por nome..." id="searchIn" oninput="applyFilters()"/>
-
     <h3>Sexo</h3>
     <label class="cb-label"><input type="checkbox" id="fGirl" onchange="applyFilters()"> Menina</label>
     <label class="cb-label"><input type="checkbox" id="fBoy"  onchange="applyFilters()"> Menino</label>
-
     <h3>Tipo de corpo</h3>
-    <label class="cb-label"><input type="checkbox" value="pano"         class="fBody" onchange="applyFilters()"> Cabeça/membros silicone, corpo de tecido</label>
-    <label class="cb-label"><input type="checkbox" value="vinil_completo" class="fBody" onchange="applyFilters()"> Corpo inteiro de silicone vinil</label>
-    <label class="cb-label"><input type="checkbox" value="solido"       class="fBody" onchange="applyFilters()"> Silicone sólido 100%</label>
-
+    <label class="cb-label"><input type="checkbox" value="pano"          class="fBody" onchange="applyFilters()"> Cabeça/membros silicone</label>
+    <label class="cb-label"><input type="checkbox" value="vinil_completo" class="fBody" onchange="applyFilters()"> Vinil completo</label>
+    <label class="cb-label"><input type="checkbox" value="solido"        class="fBody" onchange="applyFilters()"> Sólido 100%</label>
     <h3>Olhos</h3>
     <label class="cb-label"><input type="checkbox" value="abertos"  class="fEyes" onchange="applyFilters()"> Abertos</label>
     <label class="cb-label"><input type="checkbox" value="fechados" class="fEyes" onchange="applyFilters()"> Fechados</label>
-
     <h3>Cabelo</h3>
     <label class="cb-label"><input type="checkbox" value="implantado" class="fHair" onchange="applyFilters()"> Implantado fio a fio</label>
     <label class="cb-label"><input type="checkbox" value="pintado"    class="fHair" onchange="applyFilters()"> Pintado</label>
     <label class="cb-label"><input type="checkbox" value="sem_cabelo" class="fHair" onchange="applyFilters()"> Sem cabelo</label>
-
     <h3>Faixa de preço</h3>
     <div class="price-row">
       <input class="price-in" type="number" id="priceMin" placeholder="Min" oninput="applyFilters()"/>
       <span style="color:#aaa;font-size:12px">—</span>
       <input class="price-in" type="number" id="priceMax" placeholder="Max" oninput="applyFilters()"/>
     </div>
-
     <h3>Categoria</h3>
     <div id="catFilters"></div>
-
     <h3>Status</h3>
-    <label class="cb-label"><input type="checkbox" id="fAvail"   onchange="applyFilters()"> Disponível</label>
-    <label class="cb-label"><input type="checkbox" id="fReady"   onchange="applyFilters()"> Pronta entrega</label>
-    <label class="cb-label"><input type="checkbox" id="fUnavail" onchange="applyFilters()"> Indisponível</label>
-
+    <label class="cb-label"><input type="checkbox" id="fAvailF"   onchange="applyFilters()"> Disponível</label>
+    <label class="cb-label"><input type="checkbox" id="fReadyF"   onchange="applyFilters()"> Pronta entrega</label>
+    <label class="cb-label"><input type="checkbox" id="fUnavailF" onchange="applyFilters()"> Indisponível</label>
     <button class="clear-btn" onclick="clearFilters()">Limpar filtros</button>
   </aside>
 
@@ -198,7 +227,7 @@ label{font-size:12px;font-weight:600;color:#444;text-transform:uppercase;letter-
   </main>
 </div>
 
-<!-- OVERLAY + DRAWER -->
+<!-- DRAWER -->
 <div class="overlay" id="overlay" onclick="closeDrawer()"></div>
 <div class="drawer" id="drawer">
   <div class="drawer-hdr">
@@ -208,15 +237,23 @@ label{font-size:12px;font-weight:600;color:#444;text-transform:uppercase;letter-
   <div class="drawer-body">
     <input type="hidden" id="fId"/>
 
-    <div class="section-title">Foto</div>
-    <div class="photo-drop" id="photoDrop">
-      <input type="file" accept="image/*" id="photoFile" onchange="handlePhotoSelect(this)"/>
-      <img class="photo-preview" id="photoPreview" src="" alt=""/>
-      <p id="photoHint">Clique ou arraste uma foto aqui</p>
-      <div class="photo-name" id="photoName"></div>
-    </div>
-    <input type="hidden" id="fPhoto"/>
+    <!-- FOTOS -->
+    <div class="section-title">Fotos (até 5)</div>
+    <div class="photo-gallery" id="photoGallery"></div>
+    <p class="photo-help">Clique em um slot para adicionar foto. A 1ª foto é a principal. Imagens são comprimidas automaticamente.</p>
 
+    <!-- VÍDEO -->
+    <div class="section-title" style="margin-top:18px">Vídeo (opcional)</div>
+    <div class="video-drop" id="videoDrop">
+      <input type="file" accept="video/*" id="videoFile" onchange="handleVideoSelect(this)"/>
+      <video class="video-preview" id="videoPreview" controls playsinline></video>
+      <p id="videoHint">Clique ou arraste um vídeo aqui</p>
+      <div class="video-name" id="videoName"></div>
+      <div class="video-progress" id="videoProgress"><div class="video-progress-bar" id="videoBar"></div></div>
+    </div>
+    <button class="btn-remove-video" id="btnRemoveVideo" onclick="removeVideo()">Remover vídeo</button>
+
+    <!-- IDENTIFICAÇÃO -->
     <div class="section-title">Identificação</div>
     <div class="form-grid">
       <div class="form-group form-full">
@@ -239,7 +276,7 @@ label{font-size:12px;font-weight:600;color:#444;text-transform:uppercase;letter-
       </div>
       <div class="form-group">
         <label>Exibição do preço</label>
-        <input type="text" id="fPriceDisplay" placeholder="R$ 380,00 (era R$ 400,00)"/>
+        <input type="text" id="fPriceDisplay" placeholder="R$ 380,00"/>
       </div>
     </div>
 
@@ -271,7 +308,7 @@ label{font-size:12px;font-weight:600;color:#444;text-transform:uppercase;letter-
     </div>
 
     <div style="margin-top:12px">
-      <label style="font-size:12px;font-weight:600;color:#444;text-transform:uppercase;letter-spacing:.4px">Olhos</label>
+      <label>Olhos</label>
       <div class="radio-group" id="eyesGroup" style="margin-top:8px">
         <label class="radio-pill" data-val="abertos"><input type="radio" name="eyes" value="abertos"> Abertos</label>
         <label class="radio-pill" data-val="fechados"><input type="radio" name="eyes" value="fechados"> Fechados</label>
@@ -279,7 +316,7 @@ label{font-size:12px;font-weight:600;color:#444;text-transform:uppercase;letter-
     </div>
 
     <div style="margin-top:12px">
-      <label style="font-size:12px;font-weight:600;color:#444;text-transform:uppercase;letter-spacing:.4px">Cabelo</label>
+      <label>Cabelo</label>
       <div class="radio-group" id="hairGroup" style="margin-top:8px">
         <label class="radio-pill" data-val="implantado"><input type="radio" name="hair" value="implantado"> Implantado fio a fio</label>
         <label class="radio-pill" data-val="pintado"><input type="radio" name="hair" value="pintado"> Pintado</label>
@@ -318,27 +355,32 @@ label{font-size:12px;font-weight:600;color:#444;text-transform:uppercase;letter-
 <div class="toast" id="toast"></div>
 
 <script>
-const BODY_LABELS = {pano:'Corpo de tecido',vinil_completo:'Vinil completo',solido:'Sólido 100%'}
+const BODY_LABELS = {pano:'Corpo tecido',vinil_completo:'Vinil completo',solido:'Sólido 100%'}
 const HAIR_LABELS = {implantado:'Implantado',pintado:'Pintado',sem_cabelo:'Sem cabelo'}
 const EYE_LABELS  = {abertos:'Olhos abertos',fechados:'Olhos fechados'}
 const CAT_COLORS  = {'PROMOÇÃO':'#e65100','INTERMEDIÁRIO':'#1565c0','PREMIUM VINIL':'#6a1b9a','SÓLIDO SILICONE':'#2e7d32','SÓLIDO PREMIUM':'#c62828'}
 const STORAGE_URL = 'https://ctotcetfqzpdvdvwzyei.supabase.co/storage/v1/object/public/imagens'
+const MAX_PHOTOS  = 5
 
 let ALL = []
-let uploadedFilename = ''
+let photoSlots = ['','','','','']  // até 5 filenames
+let videoFilename = ''
+
+// ── MOBILE SIDEBAR ──
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('mobile-open')
+  document.getElementById('sidebarOverlay').classList.toggle('mobile-open')
+}
 
 // ── LOAD ──
 async function load() {
   const data = await fetch('/api/catalog').then(r=>r.json())
   ALL = data.products || []
-
-  // category filter checkboxes
   const cats = [...new Set(ALL.map(p=>p.category))]
   document.getElementById('catFilters').innerHTML = cats.map(c=>
     `<label class="cb-label"><input type="checkbox" value="${c}" class="fCat" onchange="applyFilters()"> ${c}</label>`
   ).join('')
-
-  document.getElementById('hdrCount').textContent = `${ALL.length} produtos no catálogo`
+  document.getElementById('hdrCount').textContent = `${ALL.length} produtos`
   applyFilters()
 }
 
@@ -353,9 +395,9 @@ function applyFilters() {
   const cats    = [...document.querySelectorAll('.fCat:checked')].map(e=>e.value)
   const minP    = parseFloat(document.getElementById('priceMin').value) || 0
   const maxP    = parseFloat(document.getElementById('priceMax').value) || Infinity
-  const avail   = document.getElementById('fAvail').checked
-  const ready   = document.getElementById('fReady').checked
-  const unavail = document.getElementById('fUnavail').checked
+  const avail   = document.getElementById('fAvailF').checked
+  const ready   = document.getElementById('fReadyF').checked
+  const unavail = document.getElementById('fUnavailF').checked
   const sort    = document.getElementById('sortSel').value
 
   let list = ALL.filter(p => {
@@ -364,9 +406,9 @@ function applyFilters() {
     if (boy  && !girl && p.sex !== 'Menino') return false
     if (bodies.length && !bodies.includes(p.bodyType)) return false
     if (eyesF.length  && !eyesF.includes(p.eyes))     return false
-    if (hairF.length  && !hairF.includes(p.hair))      return false
-    if (cats.length   && !cats.includes(p.category))   return false
-    if (p.price < minP || p.price > maxP)              return false
+    if (hairF.length  && !hairF.includes(p.hair))     return false
+    if (cats.length   && !cats.includes(p.category))  return false
+    if (p.price < minP || p.price > maxP)             return false
     if (avail   && !p.available)  return false
     if (ready   && !p.readyStock) return false
     if (unavail && p.available)   return false
@@ -379,7 +421,7 @@ function applyFilters() {
   if (sort === 'cat')        list.sort((a,b)=>a.category.localeCompare(b.category))
 
   renderGrid(list)
-  document.getElementById('resultCount').textContent = `Mostrando ${list.length} de ${ALL.length} produtos`
+  document.getElementById('resultCount').textContent = `${list.length} de ${ALL.length} produtos`
 }
 
 function clearFilters() {
@@ -392,36 +434,37 @@ function clearFilters() {
 
 function renderGrid(list) {
   const grid = document.getElementById('grid')
-  if (!list.length) { grid.innerHTML = '<div class="empty">Nenhum produto encontrado com esses filtros.</div>'; return }
+  if (!list.length) { grid.innerHTML = '<div class="empty">Nenhum produto encontrado.</div>'; return }
 
   grid.innerHTML = list.map(p => {
     const catColor = CAT_COLORS[p.category] || '#555'
-    const sexBadge = p.sex === 'Menina'
-      ? '<span class="badge b-girl">Menina</span>'
-      : '<span class="badge b-boy">Menino</span>'
-    const photo = p.photo
-      ? `<img src="${STORAGE_URL}/${p.photo}" alt="${p.name}" onerror="this.style.display='none';this.nextSibling.style.display='flex'"/><div class="card-ph" style="display:none">${placeholderSvg()}</div>`
+    const photos   = p.photos?.filter(Boolean) || (p.photo ? [p.photo] : [])
+    const mainPhoto = photos[0]
+    const photoImg = mainPhoto
+      ? `<img src="${STORAGE_URL}/${mainPhoto}" alt="${escHtml(p.name)}" onerror="this.style.display='none';this.nextSibling.style.display='flex'"/><div class="card-ph" style="display:none">${placeholderSvg()}</div>`
       : `<div class="card-ph">${placeholderSvg()}</div>`
+    const countBadge = photos.length > 1
+      ? `<div class="photo-count">📷 ${photos.length}${p.video ? ' 🎬' : ''}</div>`
+      : (p.video ? '<div class="photo-count">🎬</div>' : '')
 
     return `<div class="card ${p.available?'':'unavailable'}">
       <div class="card-img" style="border-top:3px solid ${catColor}">
-        ${photo}
+        ${photoImg}
         ${p.readyStock ? '<span class="ready-badge">PRONTA ENTREGA</span>' : ''}
         ${!p.available ? '<span class="unavail-badge">INDISPONÍVEL</span>' : ''}
+        ${countBadge}
       </div>
       <div class="card-body">
         <div class="card-badges">
           <span class="badge b-cat" style="background:${catColor}18;color:${catColor}">${p.category}</span>
-          ${sexBadge}
+          <span class="badge ${p.sex==='Menina'?'b-girl':'b-boy'}">${p.sex}</span>
           <span class="badge b-body">${BODY_LABELS[p.bodyType]||p.bodyType}</span>
-          <span class="badge b-eyes">${EYE_LABELS[p.eyes]||p.eyes}</span>
-          <span class="badge b-hair">${HAIR_LABELS[p.hair]||p.hair}</span>
         </div>
-        <div class="card-name">${p.name}</div>
+        <div class="card-name">${escHtml(p.name)}</div>
         <div class="card-price">${p.priceDisplay || 'R$ '+p.price.toFixed(2).replace('.',',')}</div>
         <div class="card-actions">
           <button class="btn-edit" onclick="openDrawer('${p.id}')">Editar</button>
-          <button class="btn-del"  onclick="deleteProduct('${p.id}','${p.name.replace(/'/g,"\\'")}')">Excluir</button>
+          <button class="btn-del"  onclick="deleteProduct('${p.id}','${escAttr(p.name)}')">Excluir</button>
         </div>
       </div>
     </div>`
@@ -429,39 +472,225 @@ function renderGrid(list) {
 }
 
 function placeholderSvg() {
-  return `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:56px;height:56px;opacity:.3"><circle cx="32" cy="22" r="13" fill="#a0897a"/><ellipse cx="32" cy="50" rx="18" ry="12" fill="#a0897a"/><circle cx="27" cy="21" r="2" fill="#5a3a2a"/><circle cx="37" cy="21" r="2" fill="#5a3a2a"/><path d="M28 27 Q32 31 36 27" stroke="#c49a8a" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`
+  return `<svg viewBox="0 0 64 64" fill="none" style="width:52px;height:52px;opacity:.25"><circle cx="32" cy="22" r="13" fill="#a0897a"/><ellipse cx="32" cy="50" rx="18" ry="12" fill="#a0897a"/></svg>`
 }
+function escHtml(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') }
+function escAttr(s) { return (s||'').replace(/'/g,"\\'") }
+
+// ── PHOTO SLOTS ──
+function renderPhotoSlots() {
+  const gallery = document.getElementById('photoGallery')
+  gallery.innerHTML = photoSlots.map((filename, i) => {
+    const hasPhoto = !!filename
+    return `<div class="photo-slot ${hasPhoto?'has-photo':''}" id="slot${i}"
+      ondragover="slotDragOver(event,${i})" ondragleave="slotDragLeave(${i})" ondrop="slotDrop(event,${i})">
+      ${hasPhoto
+        ? `<img src="${STORAGE_URL}/${filename}" alt="foto ${i+1}" onerror="this.style.opacity='.3'"/>
+           <span class="slot-num">${i+1}</span>
+           <button class="slot-remove" onclick="removePhoto(${i},event)" title="Remover">✕</button>`
+        : `<input type="file" accept="image/*" onchange="handlePhotoSelect(this,${i})"/>
+           <div class="slot-plus">+</div>
+           <div class="slot-label">${i===0?'Principal':'Foto '+(i+1)}</div>`
+      }
+    </div>`
+  }).join('')
+}
+
+function slotDragOver(e, i) { e.preventDefault(); document.getElementById('slot'+i).classList.add('dragging') }
+function slotDragLeave(i) { document.getElementById('slot'+i).classList.remove('dragging') }
+function slotDrop(e, i) {
+  e.preventDefault()
+  document.getElementById('slot'+i).classList.remove('dragging')
+  const file = e.dataTransfer.files[0]
+  if (file && file.type.startsWith('image/')) uploadPhoto(i, file)
+}
+
+async function handlePhotoSelect(input, i) {
+  const file = input.files[0]
+  if (!file) return
+  await uploadPhoto(i, file)
+}
+
+async function compressImage(file) {
+  return new Promise(resolve => {
+    const reader = new FileReader()
+    reader.onload = e => {
+      const img = new Image()
+      img.onload = () => {
+        const MAX = 1400
+        const ratio = Math.min(1, MAX / Math.max(img.width, img.height))
+        const canvas = document.createElement('canvas')
+        canvas.width  = Math.round(img.width  * ratio)
+        canvas.height = Math.round(img.height * ratio)
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height)
+        canvas.toBlob(blob => resolve(blob || file), 'image/jpeg', 0.85)
+      }
+      img.src = e.target.result
+    }
+    reader.readAsDataURL(file)
+  })
+}
+
+async function uploadPhoto(i, file) {
+  const slot = document.getElementById('slot'+i)
+  slot.innerHTML = '<div style="font-size:11px;color:#888;text-align:center;padding:8px">Enviando...</div>'
+
+  try {
+    const compressed = await compressImage(file)
+    const form = new FormData()
+    form.append('photo', compressed, file.name)
+    const res = await fetch('/api/upload', { method:'POST', body:form })
+    const data = await res.json()
+    if (data.filename) {
+      photoSlots[i] = data.filename
+      renderPhotoSlots()
+      showToast('Foto adicionada!')
+    } else {
+      showToast('Erro ao enviar: ' + (data.error||''))
+      renderPhotoSlots()
+    }
+  } catch(err) {
+    showToast('Erro ao enviar foto')
+    renderPhotoSlots()
+  }
+}
+
+function removePhoto(i, e) {
+  e?.stopPropagation()
+  photoSlots[i] = ''
+  // compacta: remove o vazio do meio e empurra vazios pro fim
+  const filled = photoSlots.filter(Boolean)
+  photoSlots = [...filled, ...new Array(MAX_PHOTOS - filled.length).fill('')]
+  renderPhotoSlots()
+}
+
+// ── VIDEO ──
+async function handleVideoSelect(input) {
+  const file = input.files[0]
+  if (!file) return
+
+  const hint = document.getElementById('videoHint')
+  const nameEl = document.getElementById('videoName')
+  const progress = document.getElementById('videoProgress')
+  const bar = document.getElementById('videoBar')
+  const preview = document.getElementById('videoPreview')
+
+  hint.style.display = 'none'
+  nameEl.textContent = 'Obtendo URL de upload...'
+  progress.style.display = 'block'
+  bar.style.width = '10%'
+
+  try {
+    // 1. Pede URL assinada ao backend
+    const res = await fetch('/api/signed-url', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ filename: file.name })
+    })
+    const { signedUrl, path } = await res.json()
+    if (!signedUrl) throw new Error('URL inválida')
+
+    nameEl.textContent = 'Enviando vídeo...'
+    bar.style.width = '40%'
+
+    // 2. Upload direto para o Supabase
+    const xhr = new XMLHttpRequest()
+    xhr.open('PUT', signedUrl)
+    xhr.setRequestHeader('Content-Type', file.type)
+    xhr.upload.onprogress = e => {
+      if (e.lengthComputable) bar.style.width = (40 + (e.loaded/e.total)*55) + '%'
+    }
+    await new Promise((resolve, reject) => {
+      xhr.onload = () => xhr.status < 300 ? resolve() : reject(new Error('Upload falhou: '+xhr.status))
+      xhr.onerror = reject
+      xhr.send(file)
+    })
+
+    bar.style.width = '100%'
+    videoFilename = path
+    nameEl.textContent = path
+    preview.src = URL.createObjectURL(file)
+    preview.classList.add('show')
+    document.getElementById('btnRemoveVideo').classList.add('show')
+    showToast('Vídeo enviado!')
+  } catch(err) {
+    showToast('Erro ao enviar vídeo: ' + err.message)
+    hint.style.display = ''
+    nameEl.textContent = ''
+  } finally {
+    setTimeout(() => { progress.style.display='none'; bar.style.width='0' }, 1000)
+  }
+}
+
+function removeVideo() {
+  videoFilename = ''
+  document.getElementById('videoPreview').classList.remove('show')
+  document.getElementById('videoPreview').src = ''
+  document.getElementById('videoHint').style.display = ''
+  document.getElementById('videoName').textContent = ''
+  document.getElementById('videoFile').value = ''
+  document.getElementById('btnRemoveVideo').classList.remove('show')
+}
+
+// drag & drop vídeo
+const vDrop = document.getElementById('videoDrop')
+vDrop.addEventListener('dragover', e => { e.preventDefault(); vDrop.classList.add('drag') })
+vDrop.addEventListener('dragleave', () => vDrop.classList.remove('drag'))
+vDrop.addEventListener('drop', e => {
+  e.preventDefault(); vDrop.classList.remove('drag')
+  const file = e.dataTransfer.files[0]
+  if (file && file.type.startsWith('video/')) {
+    const dt = new DataTransfer(); dt.items.add(file)
+    document.getElementById('videoFile').files = dt.files
+    handleVideoSelect(document.getElementById('videoFile'))
+  }
+})
 
 // ── DRAWER ──
 function openDrawer(id) {
-  uploadedFilename = ''
   const p = id ? ALL.find(x=>x.id===id) : null
   document.getElementById('drawerTitle').textContent = p ? 'Editar Produto' : 'Novo Produto'
-  document.getElementById('fId').value         = p?.id || ''
-  document.getElementById('fName').value        = p?.name || ''
-  document.getElementById('fCategory').value    = p?.category || 'PROMOÇÃO'
-  document.getElementById('fPrice').value       = p?.price || ''
-  document.getElementById('fPriceDisplay').value= p?.priceDisplay || ''
-  document.getElementById('fSize').value        = p?.size || ''
-  document.getElementById('fWeight').value      = p?.weight || ''
-  document.getElementById('fBodyType').value    = p?.bodyType || 'pano'
-  document.getElementById('fDescription').value = p?.description || ''
-  document.getElementById('fIncludes').value    = p?.includes || ''
-  document.getElementById('fNotes').value       = p?.notes || ''
-  document.getElementById('fAvailable').checked = p?.available !== false
-  document.getElementById('fReadyStock').checked= p?.readyStock || false
-  document.getElementById('fPhoto').value       = p?.photo || ''
+  document.getElementById('fId').value          = p?.id || ''
+  document.getElementById('fName').value         = p?.name || ''
+  document.getElementById('fCategory').value     = p?.category || 'PROMOÇÃO'
+  document.getElementById('fPrice').value        = p?.price || ''
+  document.getElementById('fPriceDisplay').value = p?.priceDisplay || ''
+  document.getElementById('fSize').value         = p?.size || ''
+  document.getElementById('fWeight').value       = p?.weight || ''
+  document.getElementById('fBodyType').value     = p?.bodyType || 'pano'
+  document.getElementById('fDescription').value  = p?.description || ''
+  document.getElementById('fIncludes').value     = p?.includes || ''
+  document.getElementById('fNotes').value        = p?.notes || ''
+  document.getElementById('fAvailable').checked  = p?.available !== false
+  document.getElementById('fReadyStock').checked = p?.readyStock || false
 
-  // photo preview
-  const prev = document.getElementById('photoPreview')
-  if (p?.photo) { prev.src = STORAGE_URL+'/'+p.photo; prev.classList.add('show'); document.getElementById('photoHint').style.display='none' }
-  else { prev.classList.remove('show'); document.getElementById('photoHint').style.display='' }
-  document.getElementById('photoName').textContent = p?.photo || ''
+  // fotos
+  const existingPhotos = p?.photos?.filter(Boolean) || (p?.photo ? [p.photo] : [])
+  photoSlots = [...existingPhotos.slice(0, MAX_PHOTOS), ...new Array(MAX_PHOTOS).fill('')].slice(0, MAX_PHOTOS)
+  renderPhotoSlots()
 
-  // radio pills
-  setRadios('sexGroup', p?.sex || 'Menina')
-  setRadios('eyesGroup', p?.eyes || 'abertos')
-  setRadios('hairGroup', p?.hair || 'pintado')
+  // vídeo
+  videoFilename = p?.video || ''
+  const preview = document.getElementById('videoPreview')
+  const hint    = document.getElementById('videoHint')
+  const nameEl  = document.getElementById('videoName')
+  if (videoFilename) {
+    preview.src = `${STORAGE_URL}/${videoFilename}`
+    preview.classList.add('show')
+    hint.style.display = 'none'
+    nameEl.textContent = videoFilename
+    document.getElementById('btnRemoveVideo').classList.add('show')
+  } else {
+    preview.classList.remove('show')
+    preview.src = ''
+    hint.style.display = ''
+    nameEl.textContent = ''
+    document.getElementById('btnRemoveVideo').classList.remove('show')
+  }
+
+  setRadios('sexGroup',  p?.sex   || 'Menina')
+  setRadios('eyesGroup', p?.eyes  || 'abertos')
+  setRadios('hairGroup', p?.hair  || 'pintado')
 
   document.getElementById('overlay').classList.add('open')
   document.getElementById('drawer').classList.add('open')
@@ -469,9 +698,9 @@ function openDrawer(id) {
 
 function setRadios(groupId, val) {
   document.querySelectorAll(`#${groupId} .radio-pill`).forEach(pill => {
-    const isCheck = pill.dataset.val === val
-    pill.classList.toggle('checked', isCheck)
-    if (isCheck) pill.querySelector('input').checked = true
+    const ok = pill.dataset.val === val
+    pill.classList.toggle('checked', ok)
+    if (ok) pill.querySelector('input').checked = true
   })
 }
 
@@ -487,58 +716,15 @@ document.querySelectorAll('.radio-pill').forEach(pill => {
 function closeDrawer() {
   document.getElementById('overlay').classList.remove('open')
   document.getElementById('drawer').classList.remove('open')
-  document.getElementById('photoFile').value = ''
 }
-
-// ── PHOTO UPLOAD ──
-async function handlePhotoSelect(input) {
-  const file = input.files[0]
-  if (!file) return
-
-  // preview imediato
-  const prev = document.getElementById('photoPreview')
-  prev.src = URL.createObjectURL(file)
-  prev.classList.add('show')
-  document.getElementById('photoHint').style.display = 'none'
-  document.getElementById('photoName').textContent = 'Enviando...'
-
-  const form = new FormData()
-  form.append('photo', file)
-  try {
-    const res = await fetch('/api/upload', { method:'POST', body:form })
-    const data = await res.json()
-    if (data.filename) {
-      uploadedFilename = data.filename
-      document.getElementById('fPhoto').value = data.filename
-      document.getElementById('photoName').textContent = data.filename
-      showToast('Foto enviada com sucesso!')
-    } else {
-      showToast('Erro ao enviar foto')
-    }
-  } catch {
-    showToast('Erro ao enviar foto')
-  }
-}
-
-// drag & drop
-const drop = document.getElementById('photoDrop')
-drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('drag') })
-drop.addEventListener('dragleave', () => drop.classList.remove('drag'))
-drop.addEventListener('drop', e => {
-  e.preventDefault(); drop.classList.remove('drag')
-  const file = e.dataTransfer.files[0]
-  if (file && file.type.startsWith('image/')) {
-    const dt = new DataTransfer(); dt.items.add(file)
-    document.getElementById('photoFile').files = dt.files
-    handlePhotoSelect(document.getElementById('photoFile'))
-  }
-})
 
 // ── SAVE ──
 async function saveProduct() {
-  const id = document.getElementById('fId').value
+  const id   = document.getElementById('fId').value
   const name = document.getElementById('fName').value.trim()
   if (!name) { showToast('Informe o nome do produto'); return }
+
+  const photos = photoSlots.filter(Boolean)
 
   const body = {
     name,
@@ -556,14 +742,16 @@ async function saveProduct() {
     notes:        document.getElementById('fNotes').value.trim(),
     available:    document.getElementById('fAvailable').checked,
     readyStock:   document.getElementById('fReadyStock').checked,
-    photo:        document.getElementById('fPhoto').value,
+    photos,
+    photo:        photos[0] || '',
+    video:        videoFilename,
   }
 
   const btn = document.getElementById('saveBtn')
   btn.disabled = true; btn.textContent = 'Salvando...'
 
   try {
-    const url = id ? `/api/catalog/${id}` : '/api/catalog'
+    const url    = id ? `/api/catalog/${id}` : '/api/catalog'
     const method = id ? 'PUT' : 'POST'
     await fetch(url, { method, headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) })
     showToast(id ? 'Produto atualizado!' : 'Produto adicionado!')
@@ -594,7 +782,6 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 3000)
 }
 
-// ── ESC to close ──
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer() })
 
 load()

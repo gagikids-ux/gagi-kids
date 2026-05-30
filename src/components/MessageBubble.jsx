@@ -1,15 +1,19 @@
 import './MessageBubble.css'
 
-// Detecta imagem no formato ![alt](url) que a IA pode enviar
+// Detecta imagens ![alt](url), vídeos [video:url] e texto
 function parseContent(text) {
-  const imageRegex = /!\[([^\]]*)\]\(([^)]+)\)/g
+  const regex = /!\[([^\]]*)\]\(([^)]+)\)|\[video:([^\]]+)\]/g
   const parts = []
   let last = 0
   let match
 
-  while ((match = imageRegex.exec(text)) !== null) {
+  while ((match = regex.exec(text)) !== null) {
     if (match.index > last) parts.push({ type: 'text', content: text.slice(last, match.index) })
-    parts.push({ type: 'image', alt: match[1], url: match[2] })
+    if (match[1] !== undefined) {
+      parts.push({ type: 'image', alt: match[1], url: match[2] })
+    } else {
+      parts.push({ type: 'video', url: match[3] })
+    }
     last = match.index + match[0].length
   }
   if (last < text.length) parts.push({ type: 'text', content: text.slice(last) })
@@ -17,10 +21,8 @@ function parseContent(text) {
 }
 
 function formatText(text) {
-  const urlRegex = /(https?:\/\/[^\s]+)/g
-  const boldRegex = /(\*[^*]+\*)/g
   const combined = /(\*[^*]+\*|https?:\/\/[^\s]+)/g
-
+  const urlRegex = /(https?:\/\/[^\s]+)/g
   const parts = text.split(combined)
   return parts.map((part, i) => {
     if (part.startsWith('*') && part.endsWith('*')) {
@@ -51,26 +53,59 @@ const CheckIcon = ({ status }) => {
   )
 }
 
+function PhotoGallery({ images }) {
+  if (images.length === 1) {
+    return (
+      <img
+        src={images[0].url}
+        alt={images[0].alt || 'produto'}
+        className="bubble-image"
+        onError={e => { e.target.style.display = 'none' }}
+      />
+    )
+  }
+  return (
+    <div className={`bubble-gallery bubble-gallery--${Math.min(images.length, 3)}`}>
+      {images.map((img, i) => (
+        <img
+          key={i}
+          src={img.url}
+          alt={img.alt || 'produto'}
+          className="gallery-img"
+          onError={e => { e.target.parentElement?.classList.add('img-error'); e.target.style.display = 'none' }}
+        />
+      ))}
+    </div>
+  )
+}
+
 export default function MessageBubble({ message, isFirst }) {
   const isAgent = message.sender === 'agent'
   const parts = parseContent(message.text)
 
+  const images = parts.filter(p => p.type === 'image')
+  const videos = parts.filter(p => p.type === 'video')
+  const textParts = parts.filter(p => p.type === 'text')
+
+  const hasMedia = images.length > 0 || videos.length > 0
+
   return (
     <div className={`bubble-wrapper ${isAgent ? 'bubble-wrapper--agent' : 'bubble-wrapper--user'}`}>
-      <div className={`bubble ${isAgent ? 'bubble--agent' : 'bubble--user'} ${isFirst ? 'bubble--first' : ''} ${parts.some(p => p.type === 'image') ? 'bubble--has-image' : ''}`}>
-        {parts.map((part, i) =>
-          part.type === 'image' ? (
-            <img
-              key={i}
-              src={part.url}
-              alt={part.alt || 'produto'}
-              className="bubble-image"
-              onError={e => { e.target.style.display = 'none' }}
-            />
-          ) : (
-            <p key={i} className="bubble-text">{formatText(part.content)}</p>
-          )
+      <div className={`bubble ${isAgent ? 'bubble--agent' : 'bubble--user'} ${isFirst ? 'bubble--first' : ''} ${hasMedia ? 'bubble--has-image' : ''}`}>
+        {textParts.map((part, i) =>
+          <p key={i} className="bubble-text">{formatText(part.content)}</p>
         )}
+        {images.length > 0 && <PhotoGallery images={images} />}
+        {videos.map((v, i) => (
+          <video
+            key={i}
+            src={v.url}
+            controls
+            playsInline
+            className="bubble-video"
+            onError={e => { e.target.style.display = 'none' }}
+          />
+        ))}
         <div className="bubble-meta">
           <span className="bubble-time">{message.time}</span>
           {!isAgent && <CheckIcon status={message.status} />}
